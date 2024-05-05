@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 import os
 import pandas as pd
 import random
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import confusion_matrix
 from tensorflow import keras
 import seaborn as sn
@@ -23,7 +23,7 @@ images = []
 label = []
 
 # Replace "/your/path/to/images" with the actual path to your images
-path = "D:\Root\Train"
+path = "gtsrb/train/"
 classes_list = os.listdir(path)
 print("Total Classes:",len(classes_list))
 noOfClasses=len(classes_list)
@@ -116,7 +116,9 @@ def seq_Model():
     model.add(Dense(no_Of_Nodes, activation='relu'))
     model.add(Dropout(0.5))
     model.add(Dense(noOfClasses, activation='softmax'))
-    model.compile(Adam(lr=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
+    optimizer = Adam(learning_rate=0.001)
+    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+
     return model
 model = seq_Model()
 
